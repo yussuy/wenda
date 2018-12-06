@@ -4,6 +4,7 @@ import me.yushuo.wenda.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,8 +18,10 @@ public interface QuestionDAO {
             ") values (#{title},#{content},#{createdDate},#{userId},#{commentCount})"})
     int addQuestion(Question question);
 
-    List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset,
-                                         @Param("limit") int limit);
+//    List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset,
+//                                         @Param("limit") int limit);
 
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, " where user_id = #{userId} order by id desc limit #{offset}, #{limit}"})
+    List<Question> selectLatestQuestions(int userId, int offset, int limit);
 
 }
