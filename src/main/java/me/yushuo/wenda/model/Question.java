@@ -3,8 +3,6 @@ package me.yushuo.wenda.model;
 import java.util.Date;
 
 public class Question {
-    public Question() {
-    }
 
     private int id;
     private String title;

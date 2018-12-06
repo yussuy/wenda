@@ -1,4 +1,4 @@
-package me.yushuo.wenda.DAO;
+package me.yushuo.wenda.dao;
 
 import me.yushuo.wenda.model.User;
 import org.apache.ibatis.annotations.*;

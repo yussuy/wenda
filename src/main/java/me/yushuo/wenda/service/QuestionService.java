@@ -1,6 +1,6 @@
 package me.yushuo.wenda.service;
 
-import me.yushuo.wenda.DAO.QuestionDAO;
+import me.yushuo.wenda.dao.QuestionDAO;
 import me.yushuo.wenda.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
