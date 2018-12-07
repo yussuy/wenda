@@ -13,6 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @RunWith(SpringRunner.class)
@@ -50,11 +51,12 @@ public class InitDatabaseTests {
             date.setTime(date.getTime() + 1000 * 3600 * 5 * i);
             question.setCreatedDate(date);
             questionDAO.addQuestion(question);
+
         }
         Assert.assertEquals("newpassword", userDAO.selectById(1).getPassword());
         userDAO.deleteById(1);
         Assert.assertNull(userDAO.selectById(1));
-
-        System.out.println(questionDAO.selectLatestQuestions(0, 0, 10));
+        List<Question> questionList = questionDAO.selectLatestQuestions(0,0,10);
+        System.out.printf(questionList.get(0).getCreatedDate().toString());
     }
 }

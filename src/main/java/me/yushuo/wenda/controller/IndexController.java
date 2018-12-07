@@ -24,6 +24,15 @@ public class IndexController {
     @RequestMapping(path = {"/index", "/"})
     public String index(Model model) {
         List<Question> questionList = questionService.getLatestQuestions(0, 0, 10);
+        //freemarker用obj.field表示支持Obj有getfield方法或obj是Map类型，field是Map的key
+//        List<Map<String, Object>> vos = new ArrayList<>();
+//        for (Question question : questionList) {
+//            Map vo = new HashMap();
+//            vo.put("question", question);
+//            vo.put("user", userService.getUser(question.getUserId()));
+//            vos.add(vo);
+//        }
+
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();
