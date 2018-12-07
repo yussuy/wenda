@@ -8,7 +8,7 @@ public class User {
     private String name;
     private String password;
     private String salt;
-    private String HeadUrl;
+    private String headUrl;
 
     public int getId() {
         return id;
@@ -43,10 +43,10 @@ public class User {
     }
 
     public String getHeadUrl() {
-        return HeadUrl;
+        return headUrl;
     }
 
     public void setHeadUrl(String headUrl) {
-        HeadUrl = headUrl;
+        this.headUrl = headUrl;
     }
 }
