@@ -4,6 +4,7 @@ import me.yushuo.wenda.model.Question;
 import me.yushuo.wenda.model.ViewObject;
 import me.yushuo.wenda.service.QuestionService;
 import me.yushuo.wenda.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,6 @@ public class IndexController {
 //            vo.put("user", userService.getUser(question.getUserId()));
 //            vos.add(vo);
 //        }
-
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();
@@ -43,4 +43,7 @@ public class IndexController {
         model.addAttribute("vos", vos);
         return "index";
     }
+
+//    @RequestMapping(value = "/user/{id}")
+//    public String
 }
