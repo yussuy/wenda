@@ -46,10 +46,10 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-                if (StringUtils.isEmpty(next)) {
-                    return "redirect:";
+                if (next.equals("")) {
+                    return "redirect:/";
                 }
-                return "redirect:/";
+                return "redirect:" + next;
             } else {
                 model.addAttribute("msg", map.get("msg"));
                 return "login";
@@ -77,10 +77,10 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-                if (!StringUtils.isEmpty(next)) {
-                    return "redirect:" + next;
+                if (next.equals("")) {
+                    return "redirect:/";
                 }
-                return "redirect:/";
+                return "redirect:" + next;
             } else {
                 model.addAttribute("msg", map.get("msg"));
                 return "login";
