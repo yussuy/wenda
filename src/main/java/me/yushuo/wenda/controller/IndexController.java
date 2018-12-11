@@ -25,9 +25,6 @@ public class IndexController {
     @Autowired
     UserService userService;
 
-    public void print1() {
-        System.out.println(123);
-    }
 
 
     @RequestMapping(path = {"/index", "/"}, method = {RequestMethod.GET, RequestMethod.POST})

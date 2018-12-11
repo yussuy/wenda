@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -24,15 +25,16 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping("/reglogin")
-    public String reglogin() {
+    public String reglogin(Model model, @RequestParam(value = "next" ,required = false) String next) {
+        model.addAttribute("next", next);
         return "login";
     }
 
-    @RequestMapping(value = "/reg", method = {RequestMethod.POST})
+    @RequestMapping(value = "/reg/", method = {RequestMethod.POST})
     public String reg(Model model,
                       @RequestParam("username") String username,
                       @RequestParam("password") String password,
-                      //@RequestParam("next") String next,
+                      @RequestParam(value = "next", required = false) String next,
                       @RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,
                       HttpServletResponse response) {
         try {
@@ -44,9 +46,9 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-//                if (!StringUtils.isEmpty(next)) {
-//                    return "redirect:" + next;
-//                }
+                if (StringUtils.isEmpty(next)) {
+                    return "redirect:";
+                }
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
@@ -59,12 +61,12 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST})
+    @RequestMapping(value = "/login/", method = {RequestMethod.POST})
     public String login(Model model,
                         @RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam(value = "rememberme",defaultValue = "false") boolean rememberme,
-                        //@RequestParam("next") String next,
+                        @RequestParam(value = "next", required = false) String next,
                         HttpServletResponse response) {
         try {
             Map<String, Object> map = loginService.login(username, password);
@@ -75,9 +77,9 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-//                if (!StringUtils.isEmpty(next)) {
-//                    return "redirect:" + next;
-//                }
+                if (!StringUtils.isEmpty(next)) {
+                    return "redirect:" + next;
+                }
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
