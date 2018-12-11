@@ -1,22 +1,23 @@
 package me.yushuo.wenda.service;
 
+import me.yushuo.wenda.dao.LoginTicketDAO;
 import me.yushuo.wenda.dao.UserDAO;
+import me.yushuo.wenda.model.LoginTicket;
 import me.yushuo.wenda.model.User;
 import me.yushuo.wenda.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.w3c.dom.UserDataHandler;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class LoginService {
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    LoginTicketDAO loginTicketDAO;
 
     public Map<String, Object> registry(String username, String password) {
         Map<String, Object> map = new HashMap();
@@ -42,6 +43,10 @@ public class LoginService {
         String head = "https://avatars0.githubusercontent.com/u/" + new Random().nextInt(10000);
         user.setHeadUrl(head);
         userDAO.addUser(user);
+
+        String ticket = addTicket(user.getId());
+        map.put("ticket", ticket);
+
         return map;
 
     }
@@ -54,17 +59,42 @@ public class LoginService {
         }
         if (StringUtils.isEmpty(password)) {
             map.put("msg", "密码不能为空");
+            return map;
         }
 
         User user = userDAO.selectByName(username);
         if (user == null) {
             map.put("msg", "用户未注册");
+            return map;
+
         }
 
-        if(!user.getPassword().equals(WendaUtil.MD5(password + user.getSalt()))) {
+        if (!user.getPassword().equals(WendaUtil.MD5(password + user.getSalt()))) {
             map.put("msg", "密码错误");
+            return map;
         }
+
+        String ticket = addTicket(user.getId());
+
+        map.put("ticket", ticket);
 
         return map;
+    }
+
+    String addTicket(int userId) {
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(userId);
+        loginTicket.setTicket(UUID.randomUUID().toString());
+        Date date = new Date();
+        date.setTime(date.getTime() + 3600 * 24 * 1000);
+        loginTicket.setExpired(date);
+        loginTicket.setStatus(0);
+        loginTicket.setTicket(UUID.randomUUID().toString().replace("-", ""));
+        loginTicketDAO.addLoginTicket(loginTicket);
+        return loginTicket.getTicket();
+    }
+
+    public void logout(String ticket) {
+        loginTicketDAO.updateStatus(ticket, 1);
     }
 }
