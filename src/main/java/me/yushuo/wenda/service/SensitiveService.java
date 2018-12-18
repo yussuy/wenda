@@ -1,6 +1,5 @@
 package me.yushuo.wenda.service;
 
-import freemarker.template.utility.StringUtil;
 import org.apache.commons.lang3.CharUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import java.util.Map;
 public class SensitiveService implements InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(SensitiveService.class);
 
-    private static String DEFAULT_REPLACEMENT = "<敏感词>";
+    private static String DEFAULT_REPLACEMENT = "<你懂得>";
     private TrieNode rootNode = new TrieNode();
 
     @Override
@@ -42,7 +41,6 @@ public class SensitiveService implements InitializingBean {
         private boolean end = false;
 
         private Map<Character, TrieNode> subTrieNode = new HashMap<Character, TrieNode>();
-
 
         public void addSubNode(Character c, TrieNode node) {
             subTrieNode.put(c, node);
@@ -131,8 +129,11 @@ public class SensitiveService implements InitializingBean {
         SensitiveService s = new SensitiveService();
         s.addWord("色情");
         s.addWord("赌博");
-        s.addWord("赌毒");
-        String text = "你好色情赌博";
+        s.addWord("发票");
+        s.addWord("供暖");
+        s.addWord("物业");
+        String text = "我有一张物业和供暖发票需要的找我";
+
         System.out.println(s.filter(text));
 
     }
