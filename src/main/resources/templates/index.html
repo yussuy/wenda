@@ -18,7 +18,7 @@
                             <meta itemprop="ZReactor" data-id="389034" data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;, &quot;voteups&quot;: 4168, &quot;comments&quot;: 69, &quot;source&quot;: []}">
                             <div class="feed-item-inner">
                                 <div class="avatar">
-                                    <a title=${vo.maps.user.name!} data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.maps.user.id!}">
+                                    <a title=${vo.maps.user.name!''} data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.maps.user.id!}">
                                         <img src=${vo.maps.user.headUrl!} class="zm-item-img-avatar"></a>
                                 </div>
                                 <div class="feed-main">
@@ -61,7 +61,7 @@
                                                 <div class="zh-summary summary clearfix">${vo.maps.question.content}
                                                     <a href="/question/${vo.maps.question.id}" class="toggle-expand">显示全部</a></div>
                                                 <p class="visible-expanded">
-                                                    <a itemprop="url" class="answer-date-link meta-item" data-tip="s$t$发布于 2011-09-23" target="_blank" href="https://nowcoder.com/question/19857995/answer/13174385">编辑于 2015-06-24</a></p>
+                                                    <a itemprop="url" class="answer-${vo.maps.user.name!}date-link meta-item" data-tip="s$t$发布于 2011-09-23" target="_blank" href="https://nowcoder.com/question/19857995/answer/13174385">编辑于 2015-06-24</a></p>
                                             </div>
                                         </div>
                                         <div class="feed-meta">
