@@ -1,12 +1,11 @@
 package me.yushuo.wenda.controller;
 
-import me.yushuo.wenda.dao.QuestionDAO;
 import me.yushuo.wenda.model.*;
 import me.yushuo.wenda.service.CommentService;
+import me.yushuo.wenda.service.LikeService;
 import me.yushuo.wenda.service.QuestionService;
 import me.yushuo.wenda.service.UserService;
 import me.yushuo.wenda.util.WendaUtil;
-import org.aspectj.lang.annotation.Around;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +34,9 @@ public class QuestionController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping("/question/add")
     @ResponseBody
@@ -73,6 +74,12 @@ public class QuestionController {
             ViewObject vo = new ViewObject();
             User user = userService.getUser(comment.getUserId());
             vo.set("comment", comment);
+            if (hostHolder.getUser()==null) {
+                vo.set("liked", 0);
+            } else {
+                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT, qid));
+            }
+            vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT, qid));
             vo.set("user", user);
             vos.add(vo);
         }

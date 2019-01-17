@@ -91,7 +91,7 @@
                     <div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
                         <button class="up" aria-pressed="false" title="赞同">
                             <i class="icon vote-arrow"></i>
-                            <span class="count">28</span>
+                            <span class="count">${(vo.maps.likeCount)!'0'}</span>
                             <span class="label sr-only">赞同</span></button>
                         <button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
                             <i class="icon vote-arrow"></i>
@@ -119,7 +119,7 @@
                         <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
                                 <span class="voters text">
                                     <a href="" class="more text">
-                                        <span class="js-voteCount">28</span>&nbsp;人赞同</a></span>
+                                        <span class="js-voteCount">${(vo.maps.likeCount)!'0'}</span>&nbsp;人赞同</a></span>
                         </div>
                     </div>
                     <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688"
