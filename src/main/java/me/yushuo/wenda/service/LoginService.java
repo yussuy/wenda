@@ -40,7 +40,7 @@ public class LoginService {
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
         user.setPassword(WendaUtil.MD5(password + user.getSalt()));
-        String head = "https://avatars0.githubusercontent.com/u/" + new Random().nextInt(10000);
+        String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
         user.setHeadUrl(head);
         userDAO.addUser(user);
 

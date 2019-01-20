@@ -46,9 +46,12 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-                if (StringUtils.isEmpty(next)) {
+                if (!"".equals(next)) {
                     return "redirect:" + next;
                 }
+//                if (StringUtils.isEmpty(next)) {
+//                    return "redirect:" + next;
+//                }
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));

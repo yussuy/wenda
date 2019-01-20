@@ -12,13 +12,14 @@ import java.util.List;
 public interface MessageDAO {
     String TABLE_NAME = " message ";
     String INSERT_FIELDS = " from_id, to_id, content, created_date, has_read, conversation_id ";
-    String SELECT_FILEDS = " id " + INSERT_FIELDS;
+    String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     @Insert({" insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values " +
                 "(#{fromId}, #{toId}, #{content}, #{createdDate}, #{hasRead}, #{conversationId})"})
     int addMessage(Message message);
 
-    @Select({" select ", SELECT_FILEDS, " from ", TABLE_NAME, " where conversation_id = #{conversationId} order by id desc limit #{offset}, #{limit}"})
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME,
+            " where conversation_id=#{conversationId} order by created_date desc limit #{offset}, #{limit}"})
     List<Message> getConversationDetail(@Param("conversationId") String conversationId, @Param("offset") int offset, @Param("limit") int limit);
 
 }

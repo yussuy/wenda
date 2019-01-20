@@ -17,7 +17,7 @@ import java.util.Map;
 public class SensitiveService implements InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(SensitiveService.class);
 
-    private static String DEFAULT_REPLACEMENT = "<你懂得>";
+    private static String DEFAULT_REPLACEMENT = "<敏感词>";
     private TrieNode rootNode = new TrieNode();
 
     @Override

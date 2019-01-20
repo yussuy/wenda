@@ -9,7 +9,7 @@ public class Message {
     private String content;
     private Date createdDate;
     private int hasRead;
-    private String coversationId;
+    private String conversationId;
 
     public int getId() {
         return id;
@@ -59,7 +59,7 @@ public class Message {
         this.hasRead = hasRead;
     }
 
-    public String getCoversationId() {
+    public String getConversationId() {
         if (fromId < toId) {
             return String.format("%d_%d", fromId, toId);
         } else {
@@ -67,4 +67,7 @@ public class Message {
         }
     }
 
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
+    }
 }

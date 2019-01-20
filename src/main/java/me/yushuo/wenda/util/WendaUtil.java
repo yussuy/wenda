@@ -9,7 +9,7 @@ import java.security.MessageDigest;
 public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
 
-    public static final int ANONYMOUS_USER = 9999;
+    public static final int ANONYMOUS_USER = 0;
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();

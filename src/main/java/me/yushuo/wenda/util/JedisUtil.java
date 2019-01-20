@@ -79,6 +79,21 @@ public class JedisUtil implements InitializingBean {
         return 0;
     }
 
+    public long lpush(String key, String value) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.lpush(key, value);
+        } catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        }finally {
+            if(jedis!=null) {
+                jedis.close();
+            }
+        }
+        return 0;
+    }
+
     /*
     public static void main(String[] args) {
         Jedis jedis = new Jedis("redis://localhost:6379/2");
