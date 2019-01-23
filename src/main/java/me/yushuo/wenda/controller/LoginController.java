@@ -1,5 +1,9 @@
 package me.yushuo.wenda.controller;
 
+import me.yushuo.wenda.async.EventHandler;
+import me.yushuo.wenda.async.EventModel;
+import me.yushuo.wenda.async.EventProducer;
+import me.yushuo.wenda.async.EventType;
 import me.yushuo.wenda.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,9 @@ public class LoginController {
 
     @Autowired
     LoginService loginService;
+
+    @Autowired
+    EventProducer eventProducer;
 
     @RequestMapping("/reglogin")
     public String reglogin(Model model, @RequestParam(value = "next" ,required = false) String next) {
@@ -80,6 +87,7 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
+
                 if (!StringUtils.isEmpty(next)) {
                     return "redirect:" + next;
                 }

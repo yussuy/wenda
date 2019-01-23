@@ -1,7 +1,9 @@
 package me.yushuo.wenda.controller;
 
+import me.yushuo.wenda.model.EntityType;
 import me.yushuo.wenda.model.Question;
 import me.yushuo.wenda.model.ViewObject;
+import me.yushuo.wenda.service.FollowService;
 import me.yushuo.wenda.service.QuestionService;
 import me.yushuo.wenda.service.UserService;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +27,8 @@ public class IndexController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    FollowService followService;
 
 
     @RequestMapping(path = {"/index", "/"}, method = {RequestMethod.GET, RequestMethod.POST})
@@ -53,6 +57,7 @@ public class IndexController {
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
+            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
             vo.set("user", userService.getUser(question.getUserId()));
             vos.add(vo);
         }

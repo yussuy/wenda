@@ -1,10 +1,12 @@
 package me.yushuo.wenda.async;
 
-public enum  EventType {
+public enum EventType {
     LIKE(0),
-    COMMENT(0),
-    LOGIN(0),
-    MAIL(0);
+    COMMENT(1),
+    LOGIN(2),
+    MAIL(3),
+    FOLLOW(4),
+    UNFOLLOW(5);
 
     private int value;
 

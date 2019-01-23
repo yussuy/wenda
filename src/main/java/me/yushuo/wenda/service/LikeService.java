@@ -1,6 +1,6 @@
 package me.yushuo.wenda.service;
 
-import me.yushuo.wenda.util.JedisUtil;
+import me.yushuo.wenda.util.JedisAdapter;
 import me.yushuo.wenda.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class LikeService {
 
     @Autowired
-    JedisUtil jedisUtil;
+    JedisAdapter jedisUtil;
 
     public long getLikeCount(int entityType, int entityId) {
         String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);

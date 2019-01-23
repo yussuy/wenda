@@ -1,32 +1,39 @@
 package me.yushuo.wenda.async;
 
-import me.yushuo.wenda.model.EntityType;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventModel {
-    private EntityType type;
+    private EventType type;
     private int actorId;
     private int entityType;
     private int entityId;
-    private int eventOwnerId;
+    private int entityOwnerId;
+
+    public EventModel() {
+
+    }
+
+    public EventModel(EventType type) {
+        this.type = type;
+    }
 
     private Map<String, String> exts = new HashMap<>();
 
-    public void setExt(String key, String value) {
+    public EventModel setExt(String key, String value) {
         exts.put(key, value);
+        return this;
     }
 
     public String getExt(String key) {
         return exts.get(key);
     }
 
-    public EntityType getType() {
+    public EventType getType() {
         return type;
     }
 
-    public EventModel setType(EntityType type) {
+    public EventModel setType(EventType type) {
         this.type = type;
         return this;
     }
@@ -58,12 +65,12 @@ public class EventModel {
         return this;
     }
 
-    public int getEventOwnerId() {
-        return eventOwnerId;
+    public int getEntityOwnerId() {
+        return entityOwnerId;
     }
 
-    public EventModel setEventOwnerId(int eventOwnerId) {
-        this.eventOwnerId = eventOwnerId;
+    public EventModel setEntityOwnerId(int entityOwnerId) {
+        this.entityOwnerId = entityOwnerId;
         return this;
     }
 
