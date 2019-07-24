@@ -1,5 +1,8 @@
 package me.yushuo.wenda.controller;
 
+import me.yushuo.wenda.async.EventModel;
+import me.yushuo.wenda.async.EventProducer;
+import me.yushuo.wenda.async.EventType;
 import me.yushuo.wenda.model.*;
 import me.yushuo.wenda.service.*;
 import me.yushuo.wenda.util.WendaUtil;
@@ -38,6 +41,9 @@ public class QuestionController {
     @Autowired
     FollowService followService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping("/question/add")
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
@@ -54,6 +60,9 @@ public class QuestionController {
                 question.setUserId(WendaUtil.ANONYMOUS_USER);
             }
             if(questionService.addQuestion(question) > 0) {
+                eventProducer.fireEvent(new EventModel(EventType.ADD_QUESTION)
+                .setActorId(question.getUserId()).setEntityId(question.getId())
+                .setExt("title", question.getTitle()).setExt("content", question.getContent()));
                 return WendaUtil.getJSONString(0);
             }
         } catch (Exception e) {

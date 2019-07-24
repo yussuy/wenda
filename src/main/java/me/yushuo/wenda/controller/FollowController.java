@@ -49,9 +49,11 @@ public class FollowController {
 
         boolean ret = followService.follow(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId);
 
+        /*
         eventProducer.fireEvent(new EventModel(EventType.FOLLOW)
                 .setActorId(hostHolder.getUser().getId()).setEntityId(userId)
                 .setEntityType(EntityType.ENTITY_USER).setEntityOwnerId(userId));
+        */
 
         return WendaUtil.getJSONString(ret ? 0 : 1, String.valueOf(followService.getFolloweeCount(hostHolder.getUser().getId(), EntityType.ENTITY_USER)));
     }
@@ -97,6 +99,12 @@ public class FollowController {
         info.put("count", followService.getFollowerCount(EntityType.ENTITY_QUESTION, questionId));
 
         return WendaUtil.getJSONString(ret ? 0 : 1, info);
+    }
+
+    @RequestMapping(path = "/hellotest")
+    @ResponseBody
+    public String hellotest() {
+        return "hellotest";
     }
 
     @RequestMapping(path = "/unfollowQuestion", method = RequestMethod.POST)

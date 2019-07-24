@@ -1,14 +1,11 @@
 package me.yushuo.wenda.controller;
 
-import me.yushuo.wenda.model.EntityType;
-import me.yushuo.wenda.model.Question;
-import me.yushuo.wenda.model.ViewObject;
+import me.yushuo.wenda.model.*;
+import me.yushuo.wenda.service.CommentService;
 import me.yushuo.wenda.service.FollowService;
 import me.yushuo.wenda.service.QuestionService;
 import me.yushuo.wenda.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,17 +27,37 @@ public class IndexController {
     @Autowired
     FollowService followService;
 
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    HostHolder hostHolder;
 
     @RequestMapping(path = {"/index", "/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0") int pop) {
-        model.addAttribute("vos", getQuestions(pop, 0, 10));
+        model.addAttribute("vos", getQuestions(pop, 0, 9));
         return "index";
     }
 
     @RequestMapping(value = "/user/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model, @PathVariable("userId") int userId){
         model.addAttribute("vos", getQuestions(userId, 0, 10));
-        return "index";
+
+        User user = userService.getUser(userId);
+        ViewObject vo = new ViewObject();
+        vo.set("user", user);
+        vo.set("commentCunt", commentService.getUserCommentCount(userId));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
+        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
+        if (hostHolder.getUser() != null) {
+            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
+        } else {
+            vo.set("followed", false);
+        }
+
+        model.addAttribute("profileUser", vo);
+
+        return "profile";
     }
 
     public List<ViewObject> getQuestions(int userId, int offset, int limit) {
