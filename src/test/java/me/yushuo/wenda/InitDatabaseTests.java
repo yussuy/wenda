@@ -32,10 +32,12 @@ public class InitDatabaseTests {
         Date date = new Date();
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             User user = new User();
             user.setId(i);
-            user.setHeadUrl("https://avatars0.githubusercontent.com/u/" + random.nextInt(10000));
+            http://images.nowcoder.com/head/444t.pn// g
+            user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
+//            user.setHeadUrl("https://avatars0.githubusercontent.com/u/" + random.nextInt(10000));
             user.setName(String.format("user%d", i));
             user.setPassword("");
             user.setSalt("");
@@ -56,7 +58,7 @@ public class InitDatabaseTests {
         Assert.assertEquals("newpassword", userDAO.selectById(1).getPassword());
         //userDAO.deleteById(1);
         //Assert.assertNull(userDAO.selectById(1));
-        List<Question> questionList = questionDAO.selectLatestQuestions(0,0,10);
+        List<Question> questionList = questionDAO.selectLatestQuestions(0,0,30);
         for (Question question: questionList) {
             System.out.println(question);
         }
