@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.swing.text.View;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +37,7 @@ public class MessageController {
     @Autowired
     private SensitiveService sensitiveService;
 
-    @RequestMapping(value = "/msg/addMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/msg/addMessage", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public String addMeassage(@RequestParam("toName") String toName,
                               @RequestParam("content") String content) {
