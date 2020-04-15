@@ -1,6 +1,7 @@
 <#include "header.html">
 <link rel="stylesheet" href="../styles/index.css">
 <link rel="stylesheet" href="../styles/detail.css">
+<link rel="stylesheet" href="../styles/button.css">
 <div class="zg-wrap zu-main clearfix " role="main">
     <div class="zu-main-content">
         <div class="zu-main-content-inner">
@@ -21,10 +22,12 @@
                 </div>
                 <div id="zh-load-more" data-method="next" class="zg-btn-white zg-r3px zu-button-more" style="">更多</div>
             </div>
+        </div>
     </div>
 </div>
-</div>
+<button onclick="topFunction()" id="myBtn" title="回顶部">Top</button>
 <#include "js.html">
 <script type="text/javascript" src="../scripts/main/site/detail.js"></script>
 <script type="text/javascript" src="/scripts/main/common/getData.js"></script>
+<script type="text/javascript" src="/scripts/main/common/toTop.js"></script>
 <#include "footer.html">
