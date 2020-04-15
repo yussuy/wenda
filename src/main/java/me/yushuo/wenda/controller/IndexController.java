@@ -96,7 +96,8 @@ public class IndexController {
     }*/
 
 
-    @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET, RequestMethod.POST},
+            produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public String getQuestions(int userId, int offset, int limit) {
         List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
