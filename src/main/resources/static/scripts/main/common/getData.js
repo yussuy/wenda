@@ -58,7 +58,7 @@ function getData(userId, offset, limit) {
                     '                    <div class="zm-item-vote">\n' +
                     '                    <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">' + vos[i].maps.followCount + '</a></div>\n' +
                     '                <div class="zm-item-answer-author-info">\n' +
-                    '                    <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/${vo.maps.user.id!}">' + vos[i].maps.user.name + '</a>\n' +
+                    '                    <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/' + vos[i].maps.user.id + '">' + vos[i].maps.user.name + '</a>\n' +
                     '                                            ，' + dateFormat(vos[i].maps.question.createdDate, "yyyy年MM月dd日 hh:mm:ss") + '</div>\n' +
                     '                <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">\n' +
                     '                    <span class="voters text">\n' +
