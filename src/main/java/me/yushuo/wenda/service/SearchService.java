@@ -20,7 +20,7 @@ public class SearchService {
 
     private static final String SOLR_URL = "http://127.0.0.1:8983/solr/wenda";
     private static final String QUESTION_TITLE = "question_title";
-    private static final String QUETSION_CONTENT = "question_content";
+    private static final String QUESTION_CONTENT = "question_content";
     private SolrClient client = new HttpSolrClient.Builder(SOLR_URL).build();
 
     public List<Question> searchQuestion(String keyword, int offset, int count,
@@ -32,7 +32,7 @@ public class SearchService {
         query.setHighlight(true);
         query.setHighlightSimplePre(hlPre);
         query.setHighlightSimplePost(hlPos);
-        query.set("hl.fl", QUESTION_TITLE + "," + QUETSION_CONTENT);
+        query.set("hl.fl", QUESTION_TITLE + "," + QUESTION_CONTENT);
         QueryResponse response = client.query(query);
         for (Map.Entry<String, Map<String, List<String>>> entry : response.getHighlighting().entrySet()) {
             Question q = new Question();
@@ -43,8 +43,8 @@ public class SearchService {
                     q.setTitle(titleList.get(0));
                 }
             }
-            if (entry.getValue().containsKey(QUETSION_CONTENT)) {
-                List<String> contentList = entry.getValue().get(QUETSION_CONTENT);
+            if (entry.getValue().containsKey(QUESTION_CONTENT)) {
+                List<String> contentList = entry.getValue().get(QUESTION_CONTENT);
                 if (contentList.size() > 0) {
                     q.setContent(contentList.get(0));
                 }
